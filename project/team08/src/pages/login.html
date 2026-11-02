@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-In — Tradar</title>
+    <link rel="stylesheet" href="../styles/constant.css">
+    <link rel="stylesheet" href="../styles/auth.css">
+    <link rel="icon" href="https://fav.mhciael.com/📈">
+    <script>!function () { try { var u = localStorage.getItem("team08_currentUser"); if (u) { var d = localStorage.getItem("team08_user_" + u); if (d && JSON.parse(d).settings.darkMode === false) document.documentElement.classList.add("light-mode") } } catch (e) { } }();</script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">Tradar</a>
+            <span id="market-status" class="market-status-slot" aria-live="polite"></span>
+        </nav>
+    </header>
+
+    <main class="auth-page">
+        <section class="auth-card">
+            <h1>Welcome to Tradar</h1>
+            <p class="auth-subtext">Enter a username to get started. Your portfolio and watchlist are saved to that name.</p>
+
+            <form id="login-form" class="auth-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" autocomplete="username" required>
+
+                <button type="submit" class="auth-btn primary-btn">Continue</button>
+                <button type="submit" class="auth-btn primary-btn" id="import-account-btn">Import Account</button>
+
+                <p id="auth-message" class="auth-message"></p>
+            </form>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span class="footer-brand">Tradar</span>
+<span class="footer-copy">&copy; 2026 Tradar</span>
+        </div>
+        <p class="footer-disclaimer">Market data is for informational purposes only and is not financial advice.</p>
+    </footer>
+    <script type="module" src="../scripts/pages/login-page.js"></script>
+
+</body>
+
+</html>

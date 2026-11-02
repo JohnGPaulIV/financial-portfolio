@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watchlist — Tradar</title>
+  <link rel="stylesheet" href="../styles/constant.css">
+  <link rel="icon" href="https://fav.mhciael.com/📈">
+  <script>!function () { try { var u = localStorage.getItem("team08_currentUser"); if (u) { var d = localStorage.getItem("team08_user_" + u); if (d && JSON.parse(d).settings.darkMode === false) document.documentElement.classList.add("light-mode") } } catch (e) { } }();</script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo">Tradar</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="watchlist.html" class="active">Watchlist</a></li>
+        <li><a href="explore.html">Explore</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="search-wrapper">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="search" placeholder="Search ticker or company…" name="q" id="search">
+        </div>
+        <span id="market-status" class="market-status-slot" aria-live="polite"></span>
+        <a href="preferences.html" class="pfp-btn" aria-label="Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" x="0px" y="0px" id="pfp">
+            <title>Profile</title>
+            <path
+              d="M59,32C57.52-3.81,6.48-3.81,5,32a27,27,0,0,0,54,0ZM32,6.93c21.5-.08,33,25.81,18.78,41.65C43.84,29,20.15,29,13.22,48.58-1,32.74,10.5,6.85,32,6.93ZM14.73,50.15c6-19.07,28.53-19.07,34.54,0C40,59.31,24,59.31,14.73,50.15Z" />
+            <path
+              d="M32,30.43a9.85,9.85,0,0,0,9.84-9.84c-.54-13.06-19.14-13-19.68,0A9.85,9.85,0,0,0,32,30.43Zm0-17.75a7.92,7.92,0,0,1,7.91,7.91c-.4,10.48-15.42,10.48-15.82,0A7.92,7.92,0,0,1,32,12.68Z" />
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-section">
+      <div class="section-header">
+        <h1>Watchlist</h1>
+      </div>
+    </div>
+
+    <div class="page-section">
+      <div class="card-grid" id="watchlist-grid"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Tradar</span>
+<span class="footer-copy">&copy; 2026 Tradar</span>
+    </div>
+    <p class="footer-disclaimer">Market data is for informational purposes only and is not financial advice.</p>
+  </footer>
+  <div id="search-results"></div>
+
+  <script src="../scripts/ui.js"></script>
+  <script type="module" src="../scripts/pages/watchlist.js"></script>
+</body>
+
+</html>

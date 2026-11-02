@@ -1,0 +1,649 @@
+/* ── STOCK DETAILS PAGE ──────────────────────────────────── */
+
+.invisible {
+    display: none;
+}
+
+.portfolio-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 27, 51, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity var(--transition-smooth), visibility var(--transition-smooth);
+    visibility: visible;
+}
+
+.portfolio-popup-container.invisible {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.portfolio-popup {
+    position: relative;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 420px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: modalSlideIn var(--transition-smooth) ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.portfolio-popup h2 {
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.portfolio-popup-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.portfolio-popup-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.portfolio-popup-field input {
+    padding: 12px 14px;
+    background: var(--surface-interactive);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--primary-text);
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.portfolio-popup-field input::placeholder {
+    color: var(--muted);
+}
+
+.portfolio-popup-field input:hover {
+    background: var(--surface-secondary);
+    border-color: var(--border);
+}
+
+.portfolio-popup-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+    background: var(--surface-secondary);
+}
+
+.portfolio-popup-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.portfolio-popup-actions .btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+#stock-hero {
+    position: relative;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 5vw, 36px) clamp(20px, 4vw, 40px);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Decorative ambient glow behind the logo */
+#stock-hero::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    left: -80px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, var(--accent-dim) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Trend accent stripe across the top */
+#stock-hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transition: background var(--transition-base);
+}
+
+#stock-hero.trend-up::after {
+    background: var(--primary-up-trend);
+}
+
+#stock-hero.trend-down::after {
+    background: var(--primary-down-trend);
+}
+
+/* Subtle tint when trend is known */
+#stock-hero.trend-up {
+    background: linear-gradient(135deg, rgba(91, 217, 141, 0.04) 0%, transparent 50%), var(--surface-secondary);
+}
+
+#stock-hero.trend-down {
+    background: linear-gradient(135deg, rgba(255, 123, 123, 0.04) 0%, transparent 50%), var(--surface-secondary);
+}
+
+#stock-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
+
+/* ── IDENTITY (left side of hero) ────────────────────────── */
+#stock-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+#stock-identity-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+#stock-logo {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+#stock-symbol {
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 800;
+    color: var(--primary-text);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    flex-shrink: 0;
+}
+
+#stock-name {
+    font-size: clamp(16px, 3.5vw, 22px);
+    font-weight: 500;
+    color: var(--primary-text-secondary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#stock-industry {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 3px 10px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(82, 179, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* ── PRICE + ACTIONS ─────────────────────────────────────── */
+#stock-hero-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#stock-price-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#stock-price {
+    font-size: clamp(18px, 4vw, 22px);
+    font-weight: 800;
+    color: var(--primary-text);
+    line-height: 1;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+#stock-change {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.change-positive {
+    color: var(--primary-up-trend);
+    background: rgba(91, 217, 141, 0.12);
+    border: 1px solid rgba(91, 217, 141, 0.2);
+}
+
+.change-negative {
+    color: var(--primary-down-trend);
+    background: rgba(255, 123, 123, 0.12);
+    border: 1px solid rgba(255, 123, 123, 0.2);
+}
+
+#stock-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── OUTER LAYOUT ─────────────────────────────────────────── */
+#stock-layout {
+    display: grid;
+    grid-template-columns: 1fr clamp(280px, 30vw, 360px);
+    gap: clamp(16px, 3vw, 20px);
+    align-items: start;
+}
+
+#stock-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+/* ── BODY GRID (stats + peers stacked in left column) ─────── */
+#stock-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── SHARED PANEL ─────────────────────────────────────────── */
+.sd-panel {
+    background: var(--surface-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.sd-panel-header {
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, transparent 100%);
+}
+
+.sd-panel-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--muted);
+}
+
+/* ── STATS PANEL ──────────────────────────────────────────── */
+#stock-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: clamp(12px, 2.5vw, 24px) clamp(12px, 3vw, 28px);
+    border-bottom: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    transition: background var(--transition-fast);
+    min-height: auto;
+}
+
+.stat-item:hover {
+    background: var(--surface-hover);
+}
+
+/* Remove right border on even items (right column) */
+.stat-item:nth-child(even) {
+    border-right: none;
+}
+
+/* Remove bottom border on last row */
+.stat-item:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: clamp(9px, 1.8vw, 10px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.stat-value {
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    color: var(--primary-text);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+}
+
+/* ── PEERS PANEL ──────────────────────────────────────────── */
+#peers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(6px, 2vw, 8px);
+    padding: clamp(12px, 2vw, 20px) clamp(12px, 3vw, 24px);
+    min-height: auto;
+}
+
+.peer-card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(4px, 1.5vw, 6px) clamp(10px, 2.5vw, 15px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--primary-text-secondary);
+    font-size: clamp(11px, 1.8vw, 12px);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    white-space: nowrap;
+    min-height: 32px;
+    min-width: 44px;
+}
+
+.peer-card:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(82, 179, 255, 0.15);
+}
+
+/* ── NEWS PANEL ───────────────────────────────────────────── */
+#news-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-loading,
+.news-empty {
+    padding: 24px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.news-card {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(10px, 2.5vw, 16px);
+    padding: clamp(12px, 2vw, 18px) clamp(12px, 3vw, 24px);
+    border-bottom: 1px solid var(--border-subtle);
+    text-decoration: none;
+    transition: background var(--transition-fast);
+    overflow: hidden;
+}
+
+.news-card:last-child {
+    border-bottom: none;
+}
+
+.news-card:hover {
+    background: var(--surface-hover);
+}
+
+.news-thumb {
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(42px, 10vw, 56px);
+    object-fit: cover;
+    border-radius: var(--radius);
+    flex-shrink: 0;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    min-width: 60px;
+}
+
+.news-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.news-headline {
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.news-card:hover .news-headline {
+    color: var(--accent);
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.news-source {
+    font-size: clamp(10px, 1.5vw, 11px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.news-date {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    #stock-layout {
+        grid-template-columns: 1fr 300px;
+    }
+}
+
+@media (max-width: 860px) {
+    #stock-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #stock-hero {
+        padding: 28px 28px;
+    }
+
+    #stock-symbol {
+        font-size: 28px;
+        letter-spacing: -1px;
+    }
+}
+
+@media (max-width: 600px) {
+    #stock-hero {
+        padding: clamp(16px, 3.5vw, 24px) clamp(12px, 3vw, 20px);
+    }
+
+    #stock-hero-inner {
+        flex-direction: column;
+        gap: clamp(14px, 3vw, 20px);
+    }
+
+    #stock-hero-right {
+        width: 100%;
+    }
+
+    #stock-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    #stock-actions .btn {
+        flex: 1;
+        min-width: clamp(100px, 45%, 180px);
+        justify-content: center;
+        min-height: 44px;
+        font-size: clamp(12px, 2vw, 14px);
+    }
+
+    #stock-symbol {
+        font-size: clamp(24px, 6.5vw, 32px);
+        letter-spacing: -1px;
+        word-break: break-word;
+    }
+
+    #stock-name {
+        word-break: break-word;
+    }
+
+    #stock-logo {
+        width: 56px;
+        height: 56px;
+        padding: 6px;
+    }
+
+    .stat-value {
+        font-size: clamp(14px, 3vw, 20px);
+        word-break: break-word;
+    }
+
+    .news-loading,
+    .news-empty {
+        padding: clamp(12px, 2vw, 24px);
+        font-size: clamp(12px, 2vw, 13px);
+    }
+}
+
+@media (max-width: 400px) {
+    #stock-hero {
+        padding: clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 12px);
+    }
+
+    #stock-hero-right {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    #stock-price-block {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    #stock-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #stock-actions .btn {
+        flex: 1;
+        min-width: unset;
+        width: 100%;
+    }
+
+    #stock-symbol {
+        font-size: clamp(20px, 5vw, 28px);
+    }
+
+    .stat-item {
+        padding: clamp(10px, 2vw, 12px) clamp(10px, 2.5vw, 12px);
+    }
+}
+
+@media (max-width: 420px) {
+    #stock-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-item {
+        border-right: none;
+    }
+
+    .stat-item:nth-last-child(-n+2) {
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+}

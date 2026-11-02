@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences — Tradar</title>
+    <link rel="stylesheet" href="../styles/constant.css">
+    <link rel="stylesheet" href="../styles/prefs.css">
+    <link rel="icon" href="https://fav.mhciael.com/📈">
+    <script>!function () { try { var u = localStorage.getItem("team08_currentUser"); if (u) { var d = localStorage.getItem("team08_user_" + u); if (d && JSON.parse(d).settings.darkMode === false) document.documentElement.classList.add("light-mode") } } catch (e) { } }();</script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">Tradar</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="watchlist.html">Watchlist</a></li>
+                <li><a href="explore.html">Explore</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="search" placeholder="Search ticker or company…" name="q" id="search">
+                </div>
+                <span id="market-status" class="market-status-slot" aria-live="polite"></span>
+                <a href="preferences.html" class="pfp-btn" aria-label="Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" x="0px" y="0px" id="pfp">
+                        <title>Profile</title>
+                        <path
+                            d="M59,32C57.52-3.81,6.48-3.81,5,32a27,27,0,0,0,54,0ZM32,6.93c21.5-.08,33,25.81,18.78,41.65C43.84,29,20.15,29,13.22,48.58-1,32.74,10.5,6.85,32,6.93ZM14.73,50.15c6-19.07,28.53-19.07,34.54,0C40,59.31,24,59.31,14.73,50.15Z" />
+                        <path
+                            d="M32,30.43a9.85,9.85,0,0,0,9.84-9.84c-.54-13.06-19.14-13-19.68,0A9.85,9.85,0,0,0,32,30.43Zm0-17.75a7.92,7.92,0,0,1,7.91,7.91c-.4,10.48-15.42,10.48-15.82,0A7.92,7.92,0,0,1,32,12.68Z" />
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section preferences-page">
+            <div class="section-header preferences-header">
+                <div>
+                    <p class="eyebrow">Preferences</p>
+                    <h1>Profile Settings</h1>
+                    <p class="text-secondary">
+                        Customize how Tradar looks and how stock data is displayed.
+                    </p>
+                </div>
+            </div>
+
+            <section class="settings-panel" aria-labelledby="display-settings-heading">
+                <div class="settings-panel__header">
+                    <h2 id="display-settings-heading">Display & Data</h2>
+                    <p class="text-secondary">Control appearance, currency, and price formatting.</p>
+                </div>
+
+                <div class="settings-list">
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Dark mode</h3>
+                            <p>Switch between light and dark appearance.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-toggle" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Currency</h3>
+                            <p>Select the currency used across the app.</p>
+                        </div>
+                        <select id="currency-select">
+                            <option value="USD" id="USD" selected>USD — US Dollar</option>
+                            <option value="EUR" id="EUR">EUR — Euro</option>
+                            <option value="GBP" id="GBP">GBP — British Pound</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Price change format</h3>
+                            <p>Choose how stock movement is displayed.</p>
+                        </div>
+                        <select id="price-change-format">
+                            <option value="amount" id="amount">$12.00</option>
+                            <option value="percent" id="percent">+1.4%</option>
+                            <option value="both" id="both" selected>$12.00 (1.4%)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Default chart range</h3>
+                            <p>Choose the time range shown when viewing historical stock charts.</p>
+                        </div>
+                        <select id="default-chart-range">
+                            <option value="1W" id="1Week">1 Week (1W)</option>
+                            <option value="1M" id="1Month">1 Month (1M)</option>
+                            <option value="3M" id="3Month">3 Months (3M)</option>
+                            <option value="1Y" id="1Year">1 Year (1Y)</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Default interval chart range</h3>
+                            <p>Choose the time range shown when viewing live stock interval candle charts.</p>
+                        </div>
+                        <select id="default-interChart-range">
+                            <option value="1min" id="1M" selected>1 Minute (1M)</option>
+                            <option value="5min" id="5M">5 Minutes (5M)</option>
+                            <option value="15min" id="15M">15 Minute (15M)</option>
+                            <option value="30min" id="30M">30 Minutes (30M)</option>
+                            <option value="1hour" id="1H">1 Hour (1H)</option>
+                            <option value="4hour" id="4H">4 Hours (4H)</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Default landing page</h3>
+                            <p>Choose which page opens first when you launch Tradar.</p>
+                        </div>
+                        <select id="default-landing-page">
+                            <option value="index" id="index" selected>Home</option>
+                            <option value="dashboard" id="dashboard">Dashboard</option>
+                            <option value="explore" id="explore">Explore</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Market status indicator</h3>
+                            <p>Display whether the market is currently open or closed.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="market-status-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-row__info">
+                            <h3>Asset Types Searchable</h3>
+                            <p>Choose which asset types (ie. ETF, Crypto, Stock, etc.) are displayed by search</p>
+                        </div>
+                        <div class="searchable-types-grid" role="group" aria-label="Asset types searchable">
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-stock">
+                                <input type="checkbox" id="searchable-type-checkbox-stock" data-name="stock">
+                                <span>Common Stock</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-etf">
+                                <input type="checkbox" id="searchable-type-checkbox-etf" data-name="etf">
+                                <span>ETF</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-etn">
+                                <input type="checkbox" id="searchable-type-checkbox-etn" data-name="etn">
+                                <span>ETN</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-mutual-fund">
+                                <input type="checkbox" id="searchable-type-checkbox-mutual-fund"
+                                    data-name="mutual_fund">
+                                <span>Mutual Fund</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-index-fund">
+                                <input type="checkbox" id="searchable-type-checkbox-index-fund" data-name="index">
+                                <span>Index Fund</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-crypto">
+                                <input type="checkbox" id="searchable-type-checkbox-crypto" data-name="crypto">
+                                <span>Cryptocurrency</span>
+                            </label>
+                            <label class="searchable-type-chip" for="searchable-type-checkbox-forex">
+                                <input type="checkbox" id="searchable-type-checkbox-forex" data-name="currency_pair">
+                                <span>Forex Currency Pair</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="sign-out-btn" type="button">
+                        Sign Out
+                    </button>
+                </div>
+            </section>
+
+            <section class="settings-panel" aria-labelledby="data-heading">
+                <div class="settings-panel__header">
+                    <h2 id="data-heading">Data</h2>
+                    <p class="text-secondary">Download your saved stock data.</p>
+                </div>
+
+                <div class="setting-row setting-row--stack">
+                    <div class="setting-row__info">
+                        <h3>Export data</h3>
+                        <p>Download your account information as a JSON file.</p>
+                    </div>
+                    <button class="btn btn-primary" id="export-data-btn-json" type="button">
+                        Export as JSON
+                    </button>
+
+                    <div class="setting-row__info">
+                        <h3>Import data</h3>
+                        <p>Upload your account information as a JSON file.</p>
+                    </div>
+                    <button class="btn btn-primary" id="import-data-btn-json" type="button">
+                        Upload as JSON
+                    </button>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span class="footer-brand">Tradar</span>
+<span class="footer-copy">&copy; 2026 Tradar</span>
+        </div>
+        <p class="footer-disclaimer">Market data is for informational purposes only and is not financial advice.</p>
+    </footer>
+    <div id="search-results"></div>
+
+
+    <script src="../scripts/ui.js"></script>
+    <script type="module" src="../scripts/pages/preferences.js"></script>
+
+</body>
+
+</html>

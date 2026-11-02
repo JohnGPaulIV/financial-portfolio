@@ -1,0 +1,376 @@
+/*
+	Card style system inspired by the provided reference image.
+	Suggested markup:
+
+	<div class="stock-card">
+		<div class="stock-card__top">
+			<div>
+				<p class="stock-card__symbol">AAPL</p>
+				<p class="stock-card__name">Apple Inc</p>
+			</div>
+			<div class="stock-card__price-wrap">
+				<p class="stock-card__price">$34.33</p>
+				<p class="stock-card__change up">+$3.75 (12.3%)</p>
+			</div>
+		</div>
+
+		<div class="stock-card__chart-shell">
+			<svg class="stock-card__chart" viewBox="0 0 300 180" preserveAspectRatio="none">
+				<polyline points="0,170 40,120 70,90 95,110 130,110 150,145 180,95 200,110 230,80 250,120 300,30" />
+			</svg>
+		</div>
+
+		<button class="stock-card__favorite" type="button" aria-label="Add to favorites">★</button>
+	</div>
+*/
+
+:root {
+    --card-bg: #182436;
+    --card-bg-hover: #1f2d42;
+    --card-border: #2d3d57;
+    --card-shadow: 0 16px 32px rgba(0, 0, 0, 0.34), 0 2px 8px rgba(0, 0, 0, 0.22);
+    --card-text: #edf4ff;
+    --card-muted: #b6c4d9;
+    --card-up: #56d38a;
+    --card-down: #ff7a7a;
+    --card-star: #ffd45a;
+}
+
+html.light-mode {
+    --card-bg: #f8fafc;
+    --card-bg-hover: #edf3fb;
+    --card-border: #cdd7e5;
+    --card-shadow: 0 12px 24px rgba(16, 32, 56, 0.08), 0 2px 6px rgba(16, 32, 56, 0.06);
+    --card-text: #102038;
+    --card-muted: #4e6582;
+    --card-up: #117a4e;
+    --card-down: #b93434;
+    --card-star: #c9920d;
+}
+
+.stock-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 100%, 280px), 1fr));
+    gap: clamp(16px, 3vw, 20px);
+    justify-content: center;
+}
+
+.stock-carousel__controls {
+    display: none;
+}
+
+.stock-card {
+    position: relative;
+    width: min(100%, clamp(200px, 85vw, 280px));
+    aspect-ratio: 7 / 9;
+    padding: clamp(16px, 3vw, 20px) clamp(14px, 2.5vw, 18px) clamp(44px, 8vw, 52px);
+    border-radius: 34px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%), var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    color: var(--card-text);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.stock-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+    pointer-events: none;
+}
+
+.stock-card:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.015) 100%), var(--card-bg-hover);
+    box-shadow: 0 20px 34px rgba(0, 0, 0, 0.38), 0 4px 10px rgba(0, 0, 0, 0.24);
+}
+
+.stock-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.stock-card__top> :first-child {
+    min-width: 0;
+}
+
+.stock-card__symbol {
+    margin: 0;
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    line-height: 1;
+    color: var(--card-text);
+}
+
+.stock-card__name {
+    margin: 4px 0 0;
+    font-size: clamp(12px, 2.5vw, 14px);
+    line-height: 1.2;
+    color: var(--card-muted);
+    max-width: 145px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stock-card__mini-trend {
+    display: none;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+.stock-card__price-wrap {
+    text-align: right;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.stock-card__price {
+    margin: 0;
+    font-size: clamp(1rem, 4.5vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 1.05;
+    color: var(--card-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stock-card__change {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+
+    white-space: nowrap;
+
+    max-width: 100%;
+
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.stock-card__change::before {
+    content: "";
+
+    width: 0;
+    height: 0;
+
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+
+    flex-shrink: 0;
+
+    display: inline-block;
+}
+
+.stock-card__change.up::before {
+    border-bottom: 8px solid var(--card-up);
+}
+
+.stock-card__change.down::before {
+    border-top: 8px solid var(--card-down);
+}
+
+.stock-card__chart-shell {
+    margin-top: 18px;
+    margin-bottom: 8px;
+    width: 100%;
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    border: 1px solid rgba(47, 69, 107, 0.72);
+    border-radius: 2px;
+    background: rgba(20, 35, 61, 0.28);
+    padding: 10px;
+}
+
+.stock-card__chart {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.stock-card__chart polyline {
+    fill: none;
+    stroke: var(--card-up);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 3px rgba(86, 211, 138, 0.16));
+}
+
+.stock-card__favorite {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    width: clamp(34px, 8vw, 36px);
+    height: clamp(34px, 8vw, 36px);
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(7, 13, 24, 0.3);
+    color: var(--card-star);
+    font-size: clamp(20px, 4vw, 24px);
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    transition: transform 0.16s ease, color 0.16s ease, text-shadow 0.16s ease, background 0.16s ease;
+}
+
+.stock-card__favorite:hover,
+.stock-card__favorite:focus-visible,
+.stock-card__favorite.active {
+    color: #ffe18a;
+    background: rgba(255, 216, 77, 0.14);
+    transform: scale(1.08);
+    text-shadow: 0 0 8px rgba(255, 216, 77, 0.75);
+}
+
+.stock-card__favorite:focus-visible {
+    outline: none;
+}
+
+.up {
+    color: var(--card-up);
+    font-weight: 600;
+}
+
+.down {
+    color: var(--card-down);
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .stock-carousel {
+        width: 100%;
+        overflow: clip;
+    }
+
+    .stock-card-grid {
+        display: flex;
+        gap: 0;
+        justify-content: flex-start;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 8px;
+    }
+
+    .stock-card-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .stock-card-grid>a {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        text-decoration: none;
+    }
+
+    .stock-card {
+        width: min(100%, clamp(200px, 72vw, 260px));
+        border-radius: 28px;
+        padding: clamp(16px, 2.5vw, 18px) clamp(12px, 2vw, 16px) clamp(40px, 7vw, 46px);
+    }
+
+    .stock-carousel__controls {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .stock-carousel__arrow {
+        width: 44px;
+        height: 44px;
+        border: 1px solid #2f456b;
+        border-radius: 999px;
+        background: rgba(20, 35, 61, 0.72);
+        color: var(--card-text);
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .stock-carousel__arrow:hover,
+    .stock-carousel__arrow:focus-visible {
+        background: rgba(34, 51, 84, 0.94);
+        border-color: #5a76a4;
+        transform: translateY(-1px);
+    }
+
+    .stock-carousel__arrow:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+    }
+
+    .stock-carousel__dots {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+    }
+
+    .stock-carousel__dot {
+        width: 11px;
+        height: 11px;
+        padding: 0;
+        border: none;
+        border-radius: 999px;
+        background: rgba(185, 199, 232, 0.34);
+        cursor: pointer;
+        transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .stock-carousel__dot[aria-current="true"] {
+        background: var(--card-star);
+        transform: scale(1.15);
+    }
+
+    .stock-carousel__dot:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+    }
+
+    .stock-carousel__controls.is-hidden {
+        display: none;
+    }
+
+    .stock-card__chart-shell {
+        margin-top: 14px;
+    }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Tradar</title>
+  <link rel="stylesheet" href="../styles/constant.css">
+  <link rel="stylesheet" href="../styles/cards.css">
+  <link rel="icon" href="https://fav.mhciael.com/📈">
+  <script>!function () { try { var u = localStorage.getItem("team08_currentUser"); if (u) { var d = localStorage.getItem("team08_user_" + u); if (d && JSON.parse(d).settings.darkMode === false) document.documentElement.classList.add("light-mode") } } catch (e) { } }();</script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo">Tradar</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+        <li><a href="explore.html">Explore</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="search-wrapper">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="search" placeholder="Search ticker or company…" name="q" id="search">
+        </div>
+        <span id="market-status" class="market-status-slot" aria-live="polite"></span>
+        <a href="preferences.html" class="pfp-btn" aria-label="Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" x="0px" y="0px" id="pfp">
+            <title>Profile</title>
+            <path
+              d="M59,32C57.52-3.81,6.48-3.81,5,32a27,27,0,0,0,54,0ZM32,6.93c21.5-.08,33,25.81,18.78,41.65C43.84,29,20.15,29,13.22,48.58-1,32.74,10.5,6.85,32,6.93ZM14.73,50.15c6-19.07,28.53-19.07,34.54,0C40,59.31,24,59.31,14.73,50.15Z" />
+            <path
+              d="M32,30.43a9.85,9.85,0,0,0,9.84-9.84c-.54-13.06-19.14-13-19.68,0A9.85,9.85,0,0,0,32,30.43Zm0-17.75a7.92,7.92,0,0,1,7.91,7.91c-.4,10.48-15.42,10.48-15.82,0A7.92,7.92,0,0,1,32,12.68Z" />
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-section">
+      <div class="section-header" id="top-gainer-card-section">
+        <h2>Top Gainers</h2>
+      </div>
+
+      <section class="stock-carousel" aria-labelledby="top-gainer-card-section" data-carousel-section>
+        <div class="stock-card-grid" id="top-gainer-grid" tabindex="0"></div>
+        <div class="stock-carousel__controls" aria-label="Top gainers carousel controls">
+          <button class="stock-carousel__arrow" type="button" data-carousel-prev aria-label="Show previous top gainer">
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <div class="stock-carousel__dots" data-carousel-dots role="tablist" aria-label="Top gainers card pagination">
+          </div>
+          <button class="stock-carousel__arrow" type="button" data-carousel-next aria-label="Show next top gainer">
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+      </section>
+
+      <template id="stock-card__tmplt">
+        <a id="stock_link" aria-label="View stock details">
+          <article class="stock-card">
+            <div class="stock-card__top">
+              <div>
+                <p class="stock-card__symbol" id="stock-card__tk-sym">AAPL</p>
+                <p class="stock-card__name" id="stock-card__comp-name">Apple Inc</p>
+              </div>
+              <div class="stock-card__price-wrap">
+                <p class="stock-card__price price-whole-locator" id="stock-card__curr-price"><span class="price-locator"
+                    data-denomination="USD" data-locale="en-US" data-style="currency" data-spacing="0"
+                    data-amount="34.33" data-setAmount="" data-denomination-symbol="$">34.33</span></p>
+                <p class="stock-card__change up price-whole-locator" id="stock-card__curr-price-change"><span
+                    class="direction-locator">+</span><span class="movement-locator"><span class="price-locator"
+                      data-denomination="USD" data-locale="en-US" data-style="currency" data-spacing="0"
+                      data-amount="3.75" data-setAmount="" data-denomination-symbol="$">3.75</span>
+                    <span class="percent-change-locator" data-change="">(12.3%)</span></span>
+                </p>
+              </div>
+            </div>
+            <div class="stock-card__chart-shell">
+              <svg class="stock-card__chart" viewBox="0 0 300 180" preserveAspectRatio="none" id="stock-card__stk-chrt"
+                role="img" aria-label="Stock price trend chart">
+                <polyline points="0,170 40,120 70,90 95,110 130,110 150,145 180,95 200,110 230,80 250,120 300,30">
+                </polyline>
+              </svg>
+            </div>
+
+            <button class="stock-card__favorite" id="stock-card__fav-btn" type="button"
+              aria-label="Add to favorites">★</button>
+          </article>
+        </a>
+      </template>
+    </div>
+
+    <div class="page-section">
+      <div class="section-header" id="top-loser-card-section">
+        <h2>Top Losers</h2>
+      </div>
+      <section class="stock-carousel" aria-labelledby="top-loser-card-section" data-carousel-section>
+        <div class="stock-card-grid" id="top-losers-grid" tabindex="0"></div>
+        <div class="stock-carousel__controls" aria-label="Top losers carousel controls">
+          <button class="stock-carousel__arrow" type="button" data-carousel-prev aria-label="Show previous top loser">
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <div class="stock-carousel__dots" data-carousel-dots role="tablist" aria-label="Top losers card pagination">
+          </div>
+          <button class="stock-carousel__arrow" type="button" data-carousel-next aria-label="Show next top loser">
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-header" id="top-traded-card-section">
+      <h2>Top Traded</h2>
+    </div>
+
+    <section class="stock-carousel" aria-labelledby="top-traded-card-section" data-carousel-section>
+      <div class="stock-card-grid" id="top-traded-grid" tabindex="0"></div>
+      <div class="stock-carousel__controls" aria-label="Top traded carousel controls">
+        <button class="stock-carousel__arrow" type="button" data-carousel-prev aria-label="Show previous top traded">
+          <span aria-hidden="true">&#8592;</span>
+        </button>
+        <div class="stock-carousel__dots" data-carousel-dots role="tablist" aria-label="Top traded card pagination">
+        </div>
+        <button class="stock-carousel__arrow" type="button" data-carousel-next aria-label="Show next top traded">
+          <span aria-hidden="true">&#8594;</span>
+        </button>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Tradar</span>
+<span class="footer-copy">&copy; 2026 Tradar</span>
+    </div>
+    <p class="footer-disclaimer">Market data is for informational purposes only and is not financial advice.</p>
+  </footer>
+  <div id="search-results"></div>
+
+  <script src="../scripts/ui.js"></script>
+  <script type="module" src="../scripts/pages/card-creator.js"></script>
+  <script type="module" src="../scripts/pages/home.js"></script>
+</body>
+
+</html>
